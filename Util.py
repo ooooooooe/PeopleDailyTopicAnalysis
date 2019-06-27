@@ -402,7 +402,7 @@ class Analysis:
         view2 = view1.twinx()
         view3 = view1.twinx()
         plt.subplots_adjust(right=0.75)
-        view1.set_ylim(0, 1500)
+        view1.set_ylim(0, 3500)
         view1.set_ylabel('Number of all articles for climate change coverage only')
         view1.set_xlabel('Year')
         view1.plot(timeLine, dataOne, marker='o', label='People\'s Daily (climate change coverage)')
@@ -432,6 +432,81 @@ class Analysis:
         # plt.ylabel('Number of all articles')
         plt.show()
         #plt.savefig(figPath)
+
+    @staticmethod
+    def giveDataPlotTimeLineTwoRange(figPath='fig/time.png',
+                                     timeLine = [],
+                                     dataOne = [],
+                                     labelOne = "",
+                                     dotOne = 'o',
+                                     yLimOne = 3500,
+                                     dataTwo = [],
+                                     labelTwo = "",
+                                     dotTwo = 'o',
+                                     yLimTwo = 100):
+        #fig = plt.figure()
+        #view1 = fig.add_subplot(111, axes_class=AA.Axes)
+        view1 = host_subplot(111, axes_class=AA.Axes)
+        view1.spines['top'].set_visible(False)
+        view2 = view1.twinx()
+        #view3 = view1.twinx()
+        plt.subplots_adjust(right=0.75)
+        # plt.spines['top'].set_visible(False)
+        view1.set_ylim(0, yLimOne)
+        view1.set_ylabel('Number of all articles for climate change coverage only')
+        view1.set_xlabel('Year')
+        view1.plot(timeLine, dataOne, markersize=3, marker=dotOne, label=labelOne)
+        #view1.scatter(timeLine, dataOne, label=labelOne)
+        for y, h in zip(timeLine, dataOne):
+            view1.text(y, h + 0.005, '%d' % h, ha='center', va='bottom', fontsize=9)
+
+
+        view2.set_ylim(0, yLimTwo)
+        view2.set_ylabel('Number of all articles for health and climate change converage both')
+        view2.plot(timeLine, dataTwo, 'r', markersize=3, marker=dotTwo, label=labelTwo)
+        #view2.spines['top'].set_visible(False)
+        ny2 = view2.get_grid_helper().new_fixed_axis
+        view2.axis['right'] = ny2(loc='right', axes=view2, offset=(0, 0))
+        view2.axis['right'].toggle(all=True)
+        for y, h in zip(timeLine, dataTwo):
+            view2.text(y, h + 0.005, '%d' % h, ha='center', va='bottom', fontsize=9)
+        #plt.legend(loc=4)
+        # ny3=view3.get_grid_helper().new_fixed_axis
+        # view3.axis['right'] = ny3(loc='right', axes=view3,offset=(50, 0))
+        # view3.axis['right'].toggle(all=True)
+        # view3.plot(timeLine, dataThree, 'r', marker='x', label='People\'s Daily (health and climate change coverage after manually check)')
+        # view3.set_ylim(0,50)
+        # view3.set_ylabel('Number of all articles for health and climate change coverage both after manually check')
+        # for y, h in zip(timeLine, dataThree):
+        #     view3.text(y, h + 0.005, '%d' % h, ha='center', va='bottom', fontsize=9)
+        plt.legend(loc=1,frameon=False)
+        # plt.xlabel('Year')
+        # plt.ylabel('Number of all articles')
+        plt.show()
+        #plt.savefig(figPath)
+
+    @staticmethod
+    def giveDataPlotTimeLineOneRange(figPath='fig/time.png',
+                                     timeLine = [],
+                                     dataOne = [],
+                                     labelOne = "",
+                                     dotOne = 'o',
+                                     yLimOne = 3500
+                                     ):
+        fig = plt.figure()
+        view1 = fig.add_subplot(111)
+        #view1 = host_subplot(111, axes_class=AA.Axes)
+        #view1.spines['top'].set_visible(False)
+        #plt.subplots_adjust(right=0.75)
+        view1.set_ylim(0, yLimOne)
+        #view1.set_ylabel('Number of all articles for climate change coverage only')
+        view1.set_xlabel('Year')
+        view1.plot(timeLine, dataOne, markersize=3, marker=dotOne, label=labelOne)
+        #view1.scatter(timeLine, dataOne, label=labelOne)
+        for y, h in zip(timeLine, dataOne):
+            view1.text(y, h + 0.005, '%d' % h, ha='center', va='bottom', fontsize=9)
+        plt.legend(loc=1,frameon=False)
+        plt.show()
 
     @staticmethod
     def loadDataPlotTimeLineOneRange(left, right, figPath='fig/time.png',
@@ -558,4 +633,15 @@ if __name__ == '__main__':
     #targetPath_ = 'data/segText'
     #seg = Segmentation(stopWordListPath=stopWordListPath_, sourcePath=sourcePath_, targetPath=targetPath_)
     #seg.segmentFiles()
-    Analysis.giveDataPlotTimeLineThreeRange('time.png', timeLine=range(2008, 2018 + 1), dataOne=[723, 715, 1173, 817, 719, 1015, 893, 878, 862, 688, 762], dataTwo=[19, 28, 28, 17, 12, 27, 31, 11, 19, 21, 28], dataThree=[5, 10, 6, 2, 3, 10, 8, 4, 8, 8, 10])
+    #Analysis.giveDataPlotTimeLineThreeRange('time.png', timeLine=range(2008, 2018 + 1), dataOne=[723, 715, 1173, 817, 719, 1015, 893, 878, 862, 688, 762], dataTwo=[19, 28, 28, 17, 12, 27, 31, 11, 19, 21, 28], dataThree=[5, 10, 6, 2, 3, 10, 8, 4, 8, 8, 10])
+    #Analysis.giveDataPlotTimeLineThreeRange('time0327.png', timeLine=range(2008, 2018 + 1), dataOne=[1864, 2158, 3395, 2576, 2404, 2704, 2393, 2603, 2655, 2468, 2484], dataTwo=[19, 28, 28, 17, 12, 27, 31, 11, 19, 21, 28], dataThree=[5, 10, 6, 2, 3, 10, 8, 4, 8, 8, 10])
+
+    #20190404
+    # Analysis.giveDataPlotTimeLineTwoRange('time1.png', timeLine=range(2008, 2018 + 1), dotOne='o',dataOne=[723, 715, 1173, 817, 719, 1015, 893, 878, 862, 688, 762], labelOne='People\' Daily (climate change coverage)', yLimOne = 1500, dotTwo='o', dataTwo=[19, 28, 28, 17, 12, 27, 31, 11, 19, 21, 28], labelTwo='People\' Daily (health and climate change coverage)', yLimTwo= 100)
+    # Analysis.giveDataPlotTimeLineTwoRange('time1.png', timeLine=range(2008, 2018 + 1),
+    #                                       dataOne=[1864, 2158, 3395, 2576, 2404, 2704, 2393, 2603, 2655, 2468, 2484],
+    #                                       labelOne='People\' Daily (searched by only "climate change" key words)', yLimOne=3500,
+    #                                       dataTwo=[5, 10, 6, 2, 3, 10, 8, 4, 8, 8, 10],
+    #                                       labelTwo='People\' Daily (health and climate change coverage after manually screening)', yLimTwo=50)
+    Analysis.giveDataPlotTimeLineOneRange('time2.png', timeLine=range(2008, 2018 + 1),dataOne=[1864, 2158, 3395, 2576, 2404, 2704, 2393, 2603, 2655, 2468, 2484],
+                                          labelOne='People\' Daily (searched by only "climate change" key words)', yLimOne=3500)
